@@ -1,0 +1,40 @@
+version: '3.1'
+
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:latest
+    ports:
+      - 8080:8080
+    environment:
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+    command: ["start-dev"]
+
+  mariadb:
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: mydb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - 3306:3306
+
+  backend:
+    build: ./backend
+    ports:
+      - 3000:3000
+    depends_on:
+      - mariadb
+      - keycloak
+    environment:
+      KEYCLOAK_SERVER_URL: http://keycloak:8080/auth
+      KEYCLOAK_REALM: your-realm
+      KEYCLOAK_CLIENT_ID: your-client-id
+
+  frontend:
+    build: ./frontend
+    ports:
+      - 80:80
+    depends_on:
+      - backend

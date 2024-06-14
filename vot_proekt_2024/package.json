@@ -1,0 +1,17 @@
+{
+  "name": "vot_proekt_2024",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "keycloak-connect": "^25.0.0",
+    "mariadb": "^3.3.1"
+  },
+  "description": ""
+}
